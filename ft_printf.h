@@ -11,6 +11,7 @@ typedef struct	s_ppack
     int		zero;
     int		prec;
     int		width;
+    int     error;
     char	type;
 }				t_ppack;
 

@@ -26,6 +26,11 @@ static void	get_width(const char **format, t_ppack *pack, va_list ap)
 	if (*tmp == '*')
 	{
 		pack->width = va_arg(ap, int);
+		if (pack->width < 0)
+		{
+			pack->minus = 1;
+			pack->width *= -1;
+		}
 		*format = ++tmp;
 		return ;
 	}
@@ -43,12 +48,16 @@ static void	get_prec(const char **format, t_ppack *pack, va_list ap)
 	if (*++tmp == '*')
 	{
 		pack->prec = va_arg(ap, int);
+		if (pack->prec < 0)
+			pack->prec = 0;
 		*format = ++tmp;
 		return ;
 	}
 	else if (ft_isdigit(*tmp))
 	{
 		pack->prec = ft_atoi(tmp++);
+		if (pack->prec < 0)
+			pack->error = 1;
 		while (ft_isdigit(*tmp))
 			tmp++;
 	}
@@ -57,59 +66,71 @@ static void	get_prec(const char **format, t_ppack *pack, va_list ap)
 	*format = tmp;
 }
 
-static void	process_print(t_ppack *pack, va_list ap)
+static void	print_di(t_ppack *pack, int num)
 {
+	int len;
+
+	len = numlen(num);
 
 }
 
-static void	parser(const char *format, t_ppack *pack, va_list ap, int *bytes)
+static void	process_type(t_ppack *pack, va_list ap, int *bytes)
 {
-	if (!*format)
-		return ;
+	if (pack->type == '0')
+		pack->error = 1;
+	else if (pack->type == 'd' || pack->type == 'i')
+		print_di(pack, va_arg(ap, int));
+}
+
+static void	parser(const char **format, t_ppack *pack, va_list ap, int *bytes)
+{
 	pack->minus = 0;
-	if (*format == '-' || *format == '0')
-		get_flags(&format, pack);
+	if (**format == '-' || **format == '0')
+		get_flags(format, pack);
 	else
 		pack->zero = 0;
-	if (ft_isdigit(*format) || *format == '*')
-		get_width(&format, pack, ap);
+	if (ft_isdigit(**format) || **format == '*')
+		get_width(format, pack, ap);
 	else
 		pack->width = 0;
-	if (*format == '.')
-		get_prec(&format, pack, ap);
+	if (**format == '.')
+		get_prec(format, pack, ap);
 	else
 		pack->prec = 0;
-	if (*format == 'd' || *format == 'i' || *format == 'u' || *format == 'x' \
-	|| *format == 'X' || *format == 'c' || *format == 's' || *format == 'p')
-		pack->type = *format;
+	if (**format == 'd' || **format == 'i' || **format == 'u' || **format == 'x' \
+	|| **format == 'X' || **format == 'c' || **format == 's' || **format == 'p')
+		pack->type = **format;
 	else
 		pack->type = '0';
-	if (pack->type != '0')
-		process_print(pack, ap);
+	pack->error = 0;
+	process_type(pack, ap, bytes);
 }
 
 int	ft_printf(const char *format, ...)
 {
-	va_list		ap; // sizeof(argptr)?
+	va_list		ap;
 	int			bytes;
 	t_ppack		*pack;
 
-	pack = (t_ppack *)malloc(sizeof(t_ppack));
-	if (!pack)
-		return (-1);
 	bytes = 0;
-	va_start(ap, format); // format - fist and last known parameter, init ap pointer
+	va_start(ap, format);
 	while (*format)
 	{
 		while (*format && *format != '%')
 		{
-			write(1, format++, 1);
+			if (write(1, format++, 1) < 0)
+				return (-1);
 			bytes++;
 		}
 		if (*format == '%')
-			parser(++format, pack, ap, &bytes);
+		{
+			if (!(pack = (t_ppack *)malloc(sizeof(t_ppack))))
+				return (-1);
+			format++;
+			parser(&format, pack, ap, &bytes);
+			free(pack);
+		}
 	}
-	va_end(ap); // reload stack
-	free(pack);
+	va_end(ap);
 	return (bytes);
 }

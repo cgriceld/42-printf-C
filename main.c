@@ -26,6 +26,7 @@ int	main(void)
 	printf("[%04]\n");
 	printf("[%-4.5Woo]\n");
 */
+	printf("%.-4d", 5);
 
 	return (0);
 }
