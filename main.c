@@ -1,11 +1,6 @@
 #include "ft_printf.h"
 #include <stdio.h>
 
-int	ft_isdigit(int c)
-{
-	return (c >= 48 && c <= 57);
-}
-
 int	main(void)
 {
 	/*
@@ -26,7 +21,7 @@ int	main(void)
 	printf("[%04]\n");
 	printf("[%-4.5Woo]\n");
 */
-	printf("%.-4d", 5);
+	printf("[%4.3d]\n", -62);
 
 	return (0);
 }

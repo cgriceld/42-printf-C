@@ -73,11 +73,12 @@ int	putformat(const char **s)
 	return (bytes);
 }
 
+//without sign
 int	numlen(int n)
 {
 	int i;
 
-	i = n <= 0 ? 1 : 0;
+	i = (n == 0) ? 1 : 0;
 	while (n)
 	{
 		i++;
