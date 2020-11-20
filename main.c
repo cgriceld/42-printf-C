@@ -21,7 +21,18 @@ int	main(void)
 	printf("[%04]\n");
 	printf("[%-4.5Woo]\n");
 */
-	printf("[%4.3d]\n", -62);
+	//zero
+	printf("-------\n");
+	ft_printf("[%4.d]\n", 0);
+	printf("[%4.d]\n", 0); // len = 0
+	ft_printf("[%4d]\n", 0);
+	printf("[%4d]\n", 0);
+	printf("-------\n");
+
+	printf("-------\n");
+	ft_printf("[aa%04dbb]\n", -42);
+	printf("[aa%04dbb]\n", -42);
+	printf("-------\n");
 
 	return (0);
 }

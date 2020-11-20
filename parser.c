@@ -67,11 +67,14 @@ static void	get_prec(const char **format, t_ppack *pack, va_list ap)
 	*format = tmp;
 }
 
+static void	process_type(t_ppack *pack, va_list ap, int *bytes)
+{
+	if (pack->type == 'd' || pack->type == 'i')
+		print_di(pack, va_arg(ap, int), bytes);
+}
+
 void	parser(const char **format, t_ppack *pack, va_list ap, int *bytes)
 {
-	pack->minus = 0;
-	pack->error = 0;
-	pack->wasdot = 0;
 	if (**format == '-' || **format == '0')
 		get_flags(format, pack);
 	else
@@ -88,6 +91,7 @@ void	parser(const char **format, t_ppack *pack, va_list ap, int *bytes)
 	|| **format == 'X' || **format == 'c' || **format == 's' || **format == 'p')
 		pack->type = **format;
 	else
-		pack->type = '0';
-	process_type(pack, ap, bytes);
+		pack->error = 1;
+	if (!pack->error)
+		process_type(pack, ap, bytes);
 }

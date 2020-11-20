@@ -39,40 +39,6 @@ int			ft_atoi(const char *str)
 	return (n);
 }
 
-size_t	ft_strlen(const char *s)
-{
-	const char *str;
-
-	str = s;
-	while (*str)
-		str++;
-	return (str - s);
-}
-
-char	*percchr(const char *s)
-{
-	while (*s && *s != '%')
-		s++;
-	return (*s == '%' ? (char *)s : NULL);
-}
-
-int	putformat(const char **s)
-{
-	const char	*tmp;
-	int			bytes;
-
-	tmp = *s;
-	bytes = 0;
-	while (*tmp)
-	{
-		if (write(1, tmp++, 1) < 0)
-			return (-1);
-		bytes++;
-	}
-	*s = tmp;
-	return (bytes);
-}
-
 //without sign
 int	numlen(int n)
 {
@@ -85,4 +51,33 @@ int	numlen(int n)
 		n /= 10;
 	}
 	return (i);
+}
+
+// now track write errors, add to lib
+int	ft_putchar_fd(char c, int fd)
+{
+	if (fd >= 0)
+	{
+		if (write(fd, &c, 1) < 0)
+			return (-1);
+		return (1);
+	}
+	return (-1);
+}
+
+// stay in utils, print without sign
+void	print_num(int n, t_ppack *pack, int *bytes)
+{
+	int sign;
+
+	sign = (n < 0) ? -1 : 1;
+	if (n <= -10 || n >= 10)
+		print_num(n / 10, pack, bytes);
+	if (ft_putchar_fd(n % 10 * sign + 48, 1) < 0)
+	{
+		pack->error = 1;
+		return ;
+	}
+	else
+		*bytes += 1;
 }
