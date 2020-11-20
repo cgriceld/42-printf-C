@@ -48,6 +48,7 @@ static void	get_prec(const char **format, t_ppack *pack, va_list ap)
 	pack->wasdot = 1;
 	if (*++tmp == '*')
 	{
+		pack->wildprec = 1;
 		pack->prec = va_arg(ap, int);
 		if (pack->prec < 0)
 			pack->prec = 0;

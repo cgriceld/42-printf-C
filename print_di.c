@@ -9,14 +9,14 @@
 */
 static int	correct_di(t_ppack *pack, int num, int *len)
 {
-	*len = numlen(num);
+	*len = ft_numlen(num);
 	if (!num && pack->wasdot && !pack->prec)
-		*len = 0;
+		*len = pack->wildprec ? 1 : 0;
 	if (pack->wasdot && !pack->prec)
 		pack->zero = 0;
-	pack->prec = *len >= pack->prec ? 0 : pack->prec - *len;
 	if (pack->prec)
 		pack->zero = 0;
+	pack->prec = *len >= pack->prec ? 0 : pack->prec - *len;
 	pack->width -= pack->prec + *len;
 	if (num < 0)
 		pack->width--;
@@ -65,6 +65,22 @@ static void	print_wdprec(const char ch, t_ppack *pack, int *bytes, int flag)
 		}
 		*bytes += 1;
 	}
+}
+
+static void	print_num(int n, t_ppack *pack, int *bytes)
+{
+	int sign;
+
+	sign = (n < 0) ? -1 : 1;
+	if (n <= -10 || n >= 10)
+		print_num(n / 10, pack, bytes);
+	if (ft_putchar_fd(n % 10 * sign + 48, 1) < 0)
+	{
+		pack->error = 1;
+		return ;
+	}
+	else
+		*bytes += 1;
 }
 
 /*

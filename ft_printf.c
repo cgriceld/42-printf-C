@@ -9,6 +9,7 @@ static int	collect_pack(const char **format, va_list ap, int *bytes)
 	pack->minus = 0;
 	pack->error = 0;
 	pack->wasdot = 0;
+	pack->wildprec = 0;
 	parser(format, pack, ap, bytes);
 	if (pack->error)
 	{
