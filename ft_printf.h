@@ -13,7 +13,7 @@ typedef struct	s_ppack
 	int		prec;
 	int		width;
 	int		wasdot;
-	int		wildprec;
+	int		negprec;
 	int		error;
 	char	type;
 }				t_ppack;

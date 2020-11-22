@@ -45,13 +45,13 @@ static void	get_prec(const char **format, t_ppack *pack, va_list ap)
 	const char *tmp;
 
 	tmp = *format;
-	pack->wasdot = 1;
 	if (*++tmp == '*')
 	{
-		pack->wildprec = 1;
-		pack->prec = va_arg(ap, int);
-		if (pack->prec < 0)
+		if ((pack->prec = va_arg(ap, int)) < 0)
+		{
 			pack->prec = 0;
+			pack->negprec = 1;
+		}
 		*format = ++tmp;
 		return ;
 	}
@@ -85,7 +85,10 @@ void	parser(const char **format, t_ppack *pack, va_list ap, int *bytes)
 	else
 		pack->width = 0;
 	if (**format == '.')
+	{
+		pack->wasdot = 1;
 		get_prec(format, pack, ap);
+	}
 	else
 		pack->prec = 0;
 	if (**format == 'd' || **format == 'i' || **format == 'u' || **format == 'x' \

@@ -3,18 +3,51 @@
 
 int	main(void)
 {
-	/*
-	// zero
-	printf("-------\n");
+	printf("ZERO TEST\n");
+	printf("set 1\n");
 	ft_printf("[%4.d]\n", 0);
 	printf("[%4.d]\n", 0); // len = 0
+	ft_printf("[%04.d]\n", 0);
+	printf("[%04.d]\n", 0);
+
+	printf("set 2\n");
 	ft_printf("[%4d]\n", 0);
 	printf("[%4d]\n", 0);
+	ft_printf("[%04d]\n", 0);
+	printf("[%04d]\n", 0);
+
+	printf("set 3\n");
+	printf("[%.*d]\n", -1, 0);
+	ft_printf("[%.*d]\n", -1, 0);
+	printf("[%0.*d]\n", -1, 0);
+	ft_printf("[%0.*d]\n", -1, 0);
+
+	printf("set 4\n");
+	printf("[%.d]\n", 0);
+	ft_printf("[%.d]\n", 0);
+	printf("[%0.d]\n", 0);
+	ft_printf("[%0.d]\n", 0);
+
+	printf("set 5\n");
+	printf("[%.0d]\n", 0);
+	ft_printf("[%.0d]\n", 0);
+	printf("[%0.0d]\n", 0);
+	ft_printf("[%0.0d]\n", 0);
+
+	printf("set 6\n");
+	printf("[%.*d]\n", 0, 0);
+	ft_printf("[%.*d]\n", 0, 0);
+	printf("[%0.*d]\n", 0, 0);
+	ft_printf("[%0.*d]\n", 0, 0);
+
+	printf("set 7\n");
+	printf("[%.*d]\n", -0, 0);
+	ft_printf("[%.*d]\n", -0, 0);
+	printf("[%0.*d]\n", -0, 0);
+	ft_printf("[%0.*d]\n", -0, 0);
 	printf("-------\n");
 	
-
-	//min and max int
-	printf("-------\n");
+	printf("MIN MAX INT TESTS\n");
 	ft_printf("[%d]\n", -2147483648);
 	printf("[%d]\n", -2147483648);
 	ft_printf("[%d]\n", -2147483649);
@@ -27,8 +60,7 @@ int	main(void)
 	printf("[max%-04.*dint]\n", -20, 2147483647);
 	printf("-------\n");
 
-	// some random tests
-	printf("-------\n");
+	printf("SOME RANDOM TESTS\n");
 	ft_printf("[aa%04dbb]\n", -42);
 	printf("[aa%04dbb]\n", -42);
 	ft_printf("[%007d]\n", -21);
@@ -40,11 +72,6 @@ int	main(void)
 	ft_printf("[%---6.7d]\n", -21);
 	printf("[%---6.7d]\n", -21);
 	printf("-------\n");
-	*/
-	printf("[%.*d]\n", -1, 0);
-	ft_printf("[%.*d]\n", -1, 0);
-	printf("[%.d]\n", 0);
-	ft_printf("[%.d]\n", 0);
 
 	return (0);
 }
