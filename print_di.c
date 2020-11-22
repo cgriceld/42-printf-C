@@ -45,7 +45,7 @@ static void	print_di_sign(const char ch, t_ppack *pack, int *bytes)
 ** If flag = 0, write '0' within precision and also track errors.
 ** Increase written bytes depending on the width.
 */
-static void	print_wdprec(const char ch, t_ppack *pack, int *bytes, int flag)
+void		print_wdprec(const char ch, t_ppack *pack, int *bytes, int flag)
 {
 	while (flag && pack->width--)
 	{

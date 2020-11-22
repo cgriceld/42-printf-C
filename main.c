@@ -3,6 +3,9 @@
 
 int	main(void)
 {
+	/*
+	printf("%di TESTST\n");
+
 	printf("ZERO TEST\n");
 	printf("set 1\n");
 	ft_printf("[%4.d]\n", 0);
@@ -72,6 +75,65 @@ int	main(void)
 	ft_printf("[%---6.7d]\n", -21);
 	printf("[%---6.7d]\n", -21);
 	printf("-------\n");
+	*/
+
+	printf("%% TEST\n");
+
+printf("set 1\n");
+	ft_printf("[%%]\n");
+	printf("[%%]\n");
+
+printf("set 2\n");
+	ft_printf("[%.6%]\n");
+	printf("[%.6%]\n");
+
+printf("set 3\n");
+	ft_printf("[%.*%]\n", -9);
+	printf("[%.*%]\n", -9);
+
+printf("set 4\n");
+	ft_printf("[%.5%]\n");
+	printf("[%.5%]\n");
+
+printf("set 5\n");
+	ft_printf("[%.*%]\n", 5);
+	printf("[%.*%]\n", 5);
+
+printf("set 6\n");
+	ft_printf("[%.%]\n");
+	printf("[%.%]\n");
+
+printf("set 7\n");
+	ft_printf("[%.0%]\n");
+	printf("[%.0%]\n");
+
+printf("set 8\n");
+	ft_printf("[%.*%]\n", 0);
+	printf("[%.*%]\n", 0);
+
+printf("set 9\n");
+	ft_printf("[%3%]\n");
+	printf("[%3%]\n");
+
+printf("set 10\n");
+	ft_printf("[%06%]\n");
+	printf("[%06%]\n");
+
+printf("set 11\n");
+	ft_printf("[%-6%]\n");
+	printf("[%-6%]\n");
+
+printf("set 12\n");
+	ft_printf("[%0-6%]\n");
+	printf("[%0-6%]\n");
+
+printf("set 13\n");
+	ft_printf("[%-06%]\n");
+	printf("[%-06%]\n");
+
+printf("set 14\n");
+	ft_printf("[%1%]\n");
+	printf("[%1%]\n");
 
 	return (0);
 }

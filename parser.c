@@ -72,6 +72,8 @@ static void	process_type(t_ppack *pack, va_list ap, int *bytes)
 {
 	if (pack->type == 'd' || pack->type == 'i')
 		print_di(pack, va_arg(ap, int), bytes);
+	else if (pack->type == '%')
+		print_perc(pack, bytes);
 }
 
 void	parser(const char **format, t_ppack *pack, va_list ap, int *bytes)
@@ -91,8 +93,9 @@ void	parser(const char **format, t_ppack *pack, va_list ap, int *bytes)
 	}
 	else
 		pack->prec = 0;
-	if (**format == 'd' || **format == 'i' || **format == 'u' || **format == 'x' \
-	|| **format == 'X' || **format == 'c' || **format == 's' || **format == 'p')
+	if (**format == 'd' || **format == 'i' || **format == 'u' \
+		|| **format == 'x' || **format == 'X' || **format == 'c' \
+		|| **format == 's' || **format == 'p' || **format == '%')
 		pack->type = **format;
 	else
 		pack->error = 1;

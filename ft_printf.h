@@ -20,6 +20,8 @@ typedef struct	s_ppack
 
 int		ft_printf(const char *format, ...);
 void	parser(const char **format, t_ppack *pack, va_list ap, int *bytes);
+void	print_wdprec(const char ch, t_ppack *pack, int *bytes, int flag);
 void	print_di(t_ppack *pack, int num, int *bytes);
+void	print_perc(t_ppack *pack, int *bytes);
 
 #endif
