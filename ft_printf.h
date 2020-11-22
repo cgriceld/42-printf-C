@@ -23,5 +23,7 @@ void	parser(const char **format, t_ppack *pack, va_list ap, int *bytes);
 void	print_wdprec(const char ch, t_ppack *pack, int *bytes, int flag);
 void	print_di(t_ppack *pack, int num, int *bytes);
 void	print_perc(t_ppack *pack, int *bytes);
+void	print_u(t_ppack *pack, unsigned int num, int *bytes);
+void	print_hex(t_ppack *pack, unsigned int num, const int flag, int *bytes);
 
 #endif

@@ -74,6 +74,12 @@ static void	process_type(t_ppack *pack, va_list ap, int *bytes)
 		print_di(pack, va_arg(ap, int), bytes);
 	else if (pack->type == '%')
 		print_perc(pack, bytes);
+	else if (pack->type == 'u')
+		print_u(pack, va_arg(ap, unsigned int), bytes);
+	else if (pack->type == 'x')
+		print_hex(pack, va_arg(ap, unsigned int), 0, bytes);
+	else if (pack->type == 'X')
+		print_hex(pack, va_arg(ap, unsigned int), 1, bytes);
 }
 
 void	parser(const char **format, t_ppack *pack, va_list ap, int *bytes)

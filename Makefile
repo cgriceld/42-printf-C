@@ -3,7 +3,8 @@ HEADER = ft_printf.h
 LIBFTDIR = libft
 LIBFTNAME = libft.a
 
-SRC = ft_printf.c parser.c print_di.c print_perc.c
+SRC = ft_printf.c parser.c print_utils.c \
+	print_di.c print_perc.c print_u.c print_hex.c
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror

@@ -9,7 +9,7 @@
 */
 static int	correct_di(t_ppack *pack, int num, int *len)
 {
-	*len = ft_numlen(num);
+	*len = ft_intlen(num);
 	if (!num && pack->wasdot && !pack->prec)
 		*len = pack->negprec ? 1 : 0;
 	if (pack->wasdot && !pack->prec)
@@ -29,7 +29,7 @@ static int	correct_di(t_ppack *pack, int num, int *len)
 ** Print minus and set error flag if error in write call.
 ** Increase written bytes by 1.
 */
-static void	print_di_sign(const char ch, t_ppack *pack, int *bytes)
+static void	print_disign(const char ch, t_ppack *pack, int *bytes)
 {
 	if (write(1, &ch, 1) < 0)
 	{
@@ -39,41 +39,13 @@ static void	print_di_sign(const char ch, t_ppack *pack, int *bytes)
 	*bytes += 1;
 }
 
-/*
-** If flag = 1, write ch (0 or space) within width,
-** set error flag if error in write call and break then.
-** If flag = 0, write '0' within precision and also track errors.
-** Increase written bytes depending on the width.
-*/
-void		print_wdprec(const char ch, t_ppack *pack, int *bytes, int flag)
-{
-	while (flag && pack->width--)
-	{
-		if (write(1, &ch, 1) < 0)
-		{
-			pack->error = 1;
-			return ;
-		}
-		*bytes += 1;
-	}
-	while (!flag && pack->prec--)
-	{
-		if (write(1, &ch, 1) < 0)
-		{
-			pack->error = 1;
-			return ;
-		}
-		*bytes += 1;
-	}
-}
-
-static void	print_num(int n, t_ppack *pack, int *bytes)
+static void	print_dinum(int n, t_ppack *pack, int *bytes)
 {
 	int sign;
 
 	sign = (n < 0) ? -1 : 1;
 	if (n <= -10 || n >= 10)
-		print_num(n / 10, pack, bytes);
+		print_dinum(n / 10, pack, bytes);
 	if (ft_putchar_fd(n % 10 * sign + 48, 1) < 0)
 	{
 		pack->error = 1;
@@ -99,7 +71,7 @@ void	print_di(t_ppack *pack, int num, int *bytes)
 
 	len = correct_di(pack, num, &len);
 	if (pack->zero && num < 0)
-		print_di_sign('-', pack, bytes);
+		print_disign('-', pack, bytes);
 	if (!pack->error && !pack->minus && pack->width)
 	{
 		if (pack->zero)
@@ -108,11 +80,11 @@ void	print_di(t_ppack *pack, int num, int *bytes)
 			print_wdprec(' ', pack, bytes, 1);
 	}
 	if (!pack->error && !pack->zero && num < 0)
-		print_di_sign('-', pack, bytes);
+		print_disign('-', pack, bytes);
 	if (!pack->error && pack->prec)
 		print_wdprec('0', pack, bytes, 0);
 	if (!pack->error && len)
-		print_num(num, pack, bytes);
+		print_dinum(num, pack, bytes);
 	if (!pack->error && (pack->width > 0))
 		print_wdprec(' ', pack, bytes, 1);
 }
