@@ -25,5 +25,6 @@ void	print_di(t_ppack *pack, int num, int *bytes);
 void	print_perc(t_ppack *pack, int *bytes);
 void	print_u(t_ppack *pack, unsigned int num, int *bytes);
 void	print_hex(t_ppack *pack, unsigned int num, const int flag, int *bytes);
+void	print_c(t_ppack *pack, int c, int *bytes);
 
 #endif

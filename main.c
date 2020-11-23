@@ -189,7 +189,7 @@ printf("set 12\n");
 	ft_printf("[%0-6u]\n", 0);
 	printf("[%0-6u]\n", 0);
 */
-
+/*
 printf("%%xX TEST\n");
 
 printf("set 1\n");
@@ -237,5 +237,27 @@ printf("set 10\n");
 printf("set 11\n");
 	ft_printf("[%-6.3X]\n", 4294967290);
 	printf("[%-6.3X]\n", 4294967290);
+*/
+printf("%%c TEST\n");
+/*
+printf("set 1\n");
+	ft_printf("[%-7c]\n", '\0');
+	printf("[%-7c]\n", '\0');
+	ft_printf("[%5.c]\n", '\0');
+	printf("[%5.c]\n", '\0');
+
+printf("set 2\n");
+	ft_printf("[%-5c]\n", 'a');
+	printf("[%-5c]\n", 'a');
+
+printf("set 3\n");
+	ft_printf("[%5c]\n", '\0');
+	printf("[%5c]\n", '\0');
+*/
+printf("set 4\n");
+	int my = ft_printf("[%4c]\n", '\0');
+	int or = printf("[%4c]\n", '\0');
+	printf("[%d]\n", my);
+	printf("[%d]\n", or);
 	return (0);
 }
