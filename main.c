@@ -8,8 +8,10 @@ int	main(void)
 
 	printf("ZERO TEST\n");
 	printf("set 1\n");
-	ft_printf("[%4.d]\n", 0);
-	printf("[%4.d]\n", 0); // len = 0
+	int my = ft_printf("[%4.d]\n", 0);
+	int or =  printf("[%4.d]\n", 0); // len = 0
+	printf("[%d]\n", my);
+	printf("[%d]\n", or);
 	ft_printf("[%04.d]\n", 0);
 	printf("[%04.d]\n", 0);
 
@@ -75,9 +77,9 @@ int	main(void)
 	ft_printf("[%---6.7d]\n", -21);
 	printf("[%---6.7d]\n", -21);
 	printf("-------\n");
-	*/
+	
 
-/*
+
 printf("%% TEST\n");
 
 printf("set 1\n");
@@ -135,8 +137,8 @@ printf("set 13\n");
 printf("set 14\n");
 	ft_printf("[%1%]\n");
 	printf("[%1%]\n");
-*/
-/*
+
+
 printf("%%u TEST\n");
 
 printf("set 1\n");
@@ -188,8 +190,8 @@ printf("set 11\n");
 printf("set 12\n");
 	ft_printf("[%0-6u]\n", 0);
 	printf("[%0-6u]\n", 0);
-*/
-/*
+
+
 printf("%%xX TEST\n");
 
 printf("set 1\n");
@@ -237,9 +239,9 @@ printf("set 10\n");
 printf("set 11\n");
 	ft_printf("[%-6.3X]\n", 4294967290);
 	printf("[%-6.3X]\n", 4294967290);
-*/
+
 printf("%%c TEST\n");
-/*
+
 printf("set 1\n");
 	ft_printf("[%-7c]\n", '\0');
 	printf("[%-7c]\n", '\0');
@@ -253,11 +255,31 @@ printf("set 2\n");
 printf("set 3\n");
 	ft_printf("[%5c]\n", '\0');
 	printf("[%5c]\n", '\0');
-*/
+
 printf("set 4\n");
 	int my = ft_printf("[%4c]\n", '\0');
 	int or = printf("[%4c]\n", '\0');
 	printf("[%d]\n", my);
 	printf("[%d]\n", or);
+*/
+/*
+	printf("%d\n", printf("[%10.3s]\n", NULL));
+	printf("%d\n", ft_printf("[%10.3s]\n", NULL));
+	printf("%d\n", printf("[%s]\n", "\0"));
+	printf("%d\n", ft_printf("[%s]\n", "\0"));
+	printf("%d\n", printf("[%-3s]\n", "aa"));
+	printf("%d\n", ft_printf("[%-3s]\n", "aa"));
+
+	printf("%d\n", printf("[%.*s]\n", -10, "bbbb"));
+	printf("%d\n", ft_printf("[%.*s]\n", -10, "bbbb"));
+	printf("%d\n", printf("[%.s]\n", "aaa"));
+	printf("%d\n", ft_printf("[%.s]\n", "aaa"));
+
+	printf("%d\n", printf("[%.2s]\n", "aaa"));
+	printf("%d\n", ft_printf("[%.2s]\n", "aaa"));
+*/
+	printf("[hello, %s]\n", NULL);
+	ft_printf("[hello, %s]\n", NULL);
+
 	return (0);
 }

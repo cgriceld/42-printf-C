@@ -82,6 +82,8 @@ static void	process_type(t_ppack *pack, va_list ap, int *bytes)
 		print_hex(pack, va_arg(ap, unsigned int), 1, bytes);
 	else if (pack->type == 'c')
 		print_c(pack, va_arg(ap, int), bytes);
+	else if (pack->type == 's')
+		print_s(pack, va_arg(ap, char *), bytes);
 }
 
 void	parser(const char **format, t_ppack *pack, va_list ap, int *bytes)

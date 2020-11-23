@@ -5,7 +5,7 @@ LIBFTNAME = libft.a
 
 SRC = ft_printf.c parser.c print_utils.c \
 	print_di.c print_perc.c print_u.c print_hex.c \
-	print_c.c
+	print_sc.c
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
