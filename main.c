@@ -278,8 +278,6 @@ printf("set 4\n");
 	printf("%d\n", printf("[%.2s]\n", "aaa"));
 	printf("%d\n", ft_printf("[%.2s]\n", "aaa"));
 */
-	printf("[hello, %s]\n", NULL);
-	ft_printf("[hello, %s]\n", NULL);
 
 	return (0);
 }

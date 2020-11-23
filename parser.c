@@ -2,28 +2,22 @@
 
 static void	get_flags(const char **format, t_ppack *pack)
 {
-	const char	*tmp;
-	int			was_zero;
+	int was_zero;
 
-	tmp = *format;
 	was_zero = 0;
-	while (*tmp == '-' || *tmp == '0')
+	while (**format == '-' || **format == '0')
 	{
-		if (*tmp == '-' && !pack->minus)
+		if (**format == '-' && !pack->minus)
 			pack->minus++;
-		if (*tmp++ == '0' && !was_zero)
+		if (**format++ == '0' && !was_zero)
 			was_zero++;
 	}
 	pack->zero = (!pack->minus && was_zero) ? 1 : 0;
-	*format = tmp;
 }
 
 static void	get_width(const char **format, t_ppack *pack, va_list ap)
 {
-	const char	*tmp;
-
-	tmp = *format;
-	if (*tmp == '*')
+	if (**format == '*')
 	{
 		pack->width = va_arg(ap, int);
 		if (pack->width < 0)
@@ -31,41 +25,36 @@ static void	get_width(const char **format, t_ppack *pack, va_list ap)
 			pack->minus = 1;
 			pack->width *= -1;
 		}
-		*format = ++tmp;
+		++*format;
 		return ;
 	}
-	pack->width = ft_atoi(tmp++);
-	while (ft_isdigit(*tmp))
-		tmp++;
-	*format = tmp;
+	pack->width = ft_atoi(*format++);
+	while (ft_isdigit(**format))
+		*format += 1;
 }
 
 static void	get_prec(const char **format, t_ppack *pack, va_list ap)
 {
-	const char *tmp;
-
-	tmp = *format;
-	if (*++tmp == '*')
+	if (**++format == '*')
 	{
 		if ((pack->prec = va_arg(ap, int)) < 0)
 		{
 			pack->prec = 0;
 			pack->negprec = 1;
 		}
-		*format = ++tmp;
+		++*format;
 		return ;
 	}
-	else if (ft_isdigit(*tmp))
+	else if (ft_isdigit(**format))
 	{
-		pack->prec = ft_atoi(tmp++);
+		pack->prec = ft_atoi(*format++);
 		if (pack->prec < 0)
 			pack->error = 1;
-		while (ft_isdigit(*tmp))
-			tmp++;
+		while (ft_isdigit(**format))
+			++*format;
 	}
 	else
 		pack->prec = 0;
-	*format = tmp;
 }
 
 static void	process_type(t_ppack *pack, va_list ap, int *bytes)
@@ -84,6 +73,8 @@ static void	process_type(t_ppack *pack, va_list ap, int *bytes)
 		print_c(pack, va_arg(ap, int), bytes);
 	else if (pack->type == 's')
 		print_s(pack, va_arg(ap, char *), bytes);
+	else if (pack->type == 'p')
+		print_p(pack, va_arg(ap, void *), bytes);
 }
 
 void	parser(const char **format, t_ppack *pack, va_list ap, int *bytes)

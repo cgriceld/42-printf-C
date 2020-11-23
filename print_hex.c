@@ -43,4 +43,5 @@ void	print_hex(t_ppack *pack, unsigned int num, const int flag, int *bytes)
 	}
 	if (!pack->error && (pack->width > 0))
 		print_wdprec(' ', pack, bytes, 1);
+	free((char *)hexnum);
 }

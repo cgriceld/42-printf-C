@@ -27,5 +27,6 @@ void	print_u(t_ppack *pack, unsigned int num, int *bytes);
 void	print_hex(t_ppack *pack, unsigned int num, const int flag, int *bytes);
 void	print_c(t_ppack *pack, int c, int *bytes);
 void	print_s(t_ppack *pack, char *s, int *bytes);
+void	print_p(t_ppack *pack, void *p, int *bytes);
 
 #endif
