@@ -5,7 +5,7 @@ static int	correct_u(t_ppack *pack, unsigned int num, int *len)
 	*len = ft_uintlen(num);
 	if (!num && pack->wasdot && !pack->prec)
 		*len = pack->negprec ? 1 : 0;
-	if (pack->wasdot && !pack->prec)
+	if (pack->wasdot && !pack->prec && !pack->negprec)
 		pack->zero = 0;
 	if (pack->prec)
 		pack->zero = 0;

@@ -5,7 +5,7 @@ static int	correct_hex(t_ppack *pack, const char *hexnum, int *len)
 	*len = (int)ft_strlen(hexnum);
 	if (*hexnum == '0' && pack->wasdot && !pack->prec)
 		*len = pack->negprec ? 1 : 0;
-	if (pack->wasdot && !pack->prec)
+	if (pack->wasdot && !pack->prec && !pack->negprec)
 		pack->zero = 0;
 	if (pack->prec)
 		pack->zero = 0;

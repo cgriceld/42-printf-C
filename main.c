@@ -278,8 +278,13 @@ printf("set 4\n");
 	printf("%d\n", printf("[%.2s]\n", "aaa"));
 	printf("%d\n", ft_printf("[%.2s]\n", "aaa"));
 */
-	printf("%d\n", printf("[%.5d]\n", 2));
-	printf("%d\n", ft_printf("[%.5d]\n", 2));
+
+int		h = 4200;
+int		i = 8;
+char	*p = "-12";
+char	*r = "%%";
+	printf("%d\n", printf("[%%%dbada%s%%**%s**-d%%0*d%-12s0*@]\n", h, "bada", r, p, r, r, i, r, i, r, i));
+	printf("%d\n", ft_printf("[%%%dbada%s%%**%s**-d%%0*d%-12s0*@]\n", h, "bada", r, p, r, r, i, r, i, r, i));
 
 	return (0);
 }
