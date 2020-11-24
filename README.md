@@ -1,7 +1,7 @@
-My own implementation of `printf` function. It also uses function from my own C library (libft).\
+My own implementation of `printf` function. It also uses function from my own C library (libft).
 
 printf ("format", [arguments ...])\
-"format" = %[flags][width][.precision]type\
+"format" = %[flags][width][.precision]type
 
 This version supports `c s p d i u x X %` conversions, `- 0` flags, width and precision fields.\
 This version doesn't reproduce undefined behavior.\
@@ -13,7 +13,7 @@ Returns number of written bytes or -1 in following cases:\
 	the value is leftaligned within the specified width; by default, it is rightaligned\
 - `0`\
 	adds zeros within specified width, by default - spaces\
-	behavior depends on type (see below)\
+	behavior depends on type (see below)
 
 - width\
 	minimum field width\
@@ -23,9 +23,10 @@ Returns number of written bytes or -1 in following cases:\
 
 - precision\
 	`.`followed either by nonnegative decimal integer or through `*` (int argument)\
-	if negative precision through `*` - ignored, if negative precision directly in `format` - won't compile with `-Wall -Wextra -Werror`\
+	if negative precision through `*` - ignored, if negative precision directly in `format` - won't compile\
+	with `-Wall -Wextra -Werror`\
 	if only the `.` is specified, the precision is taken as zero\
-	behavior depends on type (see below)\
+	behavior depends on type (see below)
 
 Types:
 
@@ -35,30 +36,30 @@ Types:
 	if `0` and `-` both appear, the `0` is ignored\
 	if a precision is specified, the `0` is ignored\
 	precision - minimum number of digits to appear (if value < precision, expanded with zeros)\
-	the result of converting a 0 with 0 precision is no characters\
+	the result of converting a 0 with 0 precision is no characters
 
 - `u`\
 	unsigned decimal (unsigned int)\
 	similar to `d, i`
 
 - `x, X`\
-	unsigned hexadecimal notation (unsigned int converted to hex)
-	x uses lower case (abcdef), X - upper case (ABCDEF)
+	unsigned hexadecimal notation (unsigned int converted to hex)\
+	x uses lower case (abcdef), X - upper case (ABCDEF)\
 	similar to `d, i`
 
 - `c`\
-	int argument converted to unsigned char
+	int argument converted to unsigned char\
 	undefined behavior with `0` and specified precision
 
 - `s`\
 	pointer to string\
 	undefined behavior with `0`\
-	precision specify the maximum number of bytes to be written\
+	precision specify the maximum number of bytes to be written
 
 - `p`\
-	pointer of void type
+	pointer of void type\
 	undefined behavior with `0` and specified precision
 
 - `%`\
-	a % character is written
+	a % character is written\
 	undefined behavior with `0` and specified precision
