@@ -1,9 +1,11 @@
 #include "ft_printf.h"
 
-static int	correct_p(t_ppack *pack, const char	*address, int *len)
+static int	correct_p(t_ppack *pack, const char	*address, void *p, int *len)
 {
 	*len = (int)ft_strlen(address);
 	pack->width -= 2;
+	if (!p && pack->wasdot && !pack->prec)
+		*len = 0;
 	if (pack->width)
 		pack->width -= *len;
 	if (pack->width < 0)
@@ -17,7 +19,7 @@ void	print_p(t_ppack *pack, void *p, int *bytes)
 	int			len;
 
 	address = ft_itoahex((size_t)p, 0);
-	len = correct_p(pack, address, &len);
+	len = correct_p(pack, address, p, &len);
 	if (!pack->minus && pack->width)
 			print_wdprec(' ', pack, bytes, 1);
 	if (!pack->error)
