@@ -278,8 +278,8 @@ printf("set 4\n");
 	printf("%d\n", printf("[%.2s]\n", "aaa"));
 	printf("%d\n", ft_printf("[%.2s]\n", "aaa"));
 */
-	printf("%d\n", printf("[%03s]\n", "hi low\0don't print me lol\0"));
-	printf("%d\n", ft_printf("[%03s]\n", "hi low\0don't print me lol\0"));
+	printf("%d\n", printf("[%.-8s]\n", "\0"));
+	printf("%d\n", ft_printf("[%.-8s]\n", "\0"));
 
 	return (0);
 }

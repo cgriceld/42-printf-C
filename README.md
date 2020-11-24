@@ -1,45 +1,64 @@
-printf format [arguments ...]
-%[флаги][ширина][.точность][размер]тип
+My own implementation of `printf` function. It also uses function from my own C library (libft).\
 
-format - string 
-conversions: c s p d i u x X %
-flags: - 0 . *
+printf ("format", [arguments ...])\
+"format" = %[flags][width][.precision]type\
 
+This version supports `c s p d i u x X %` conversions, `- 0` flags, width and precision fields.\
+This version doesn't reproduce undefined behavior.\
+Returns number of written bytes or -1 in following cases:\
+- no conversion specifier at all or a wrong one\
+- negative precision in `format`
 
-Флаги:
-- '-' 
-    значение выравнивается по левому краю в пределах заданной ширины, по умолчанию - по правому
-- '0'
-    дополняет до ширины поле нулями, по умолчанию - пробелами
-    если одновременно и -, и 0, то - в приоритете
-    для d, i, u, x, X игнорируется, если указана точность
-    для типов c, s, p поведение не определено
+- `-`\
+	the value is leftaligned within the specified width; by default, it is rightaligned\
+- `0`\
+	adds zeros within specified width, by default - spaces\
+	behavior depends on type (see below)\
 
-Ширина:
-    указывает ширину поля
-    если в строке, то это неотрицательное число, если через *, то это int аргумент
-    отрицательная ширина через * воспринимается как флаг - и положительное число
-    если число больше ширины, то ширина игнорируется, число пишется в свою изначальную ширину
-    если меньше - то по умолчанию будет дополнено пробелами слева (если флаги не определяют иное)
-    может быть передана через *, тогда указывается в списке аргументов перед значением для вывода
+- width\
+	minimum field width\
+	can be specified directly in `format` (nonnegative decimal integer) or through `*` (int argument)\
+	negative width is taken as a `-` flag followed by a positive width (both for `format` and `*`)\
+	if value length > width, width is ignored, otherwise it is padded with spaces on the left (or depending on flags)
 
-Точность:
-    за точкой следует число, которое определяет:
-        для типов d, i, u, x, X минимальное количество символов
-        для s - максимальное число символов, которые будут выведены
-    если после точки отсутствуют * или число, то считается, что точность равна 0
-    может быть передана через * как int аргумент
-    отрицательная точность в строке - не скомпилит
-    отрицательная точка через * просто игнорируется, будто точность не задана вовсе
+- precision\
+	`.`followed either by nonnegative decimal integer or through `*` (int argument)\
+	if negative precision through `*` - ignored, if negative precision directly in `format` - won't compile with `-Wall -Wextra -Werror`\
+	if only the `.` is specified, the precision is taken as zero\
+	behavior depends on type (see below)\
 
-d, i — десятичное знаковое число, тип по умолчанию int. По умолчанию записывается с правым выравниванием, знак пишется только для отрицательных чисел. 
+Types:
 
-u — десятичное беззнаковое число, тип по умолчанию unsigned int.
+- `d, i`\
+	signed decimal (int)\
+	if `0`, leading zeros (if negative, sign before zeros) are used to pad to the width\
+	if `0` and `-` both appear, the `0` is ignored\
+	if a precision is specified, the `0` is ignored\
+	precision - minimum number of digits to appear (if value < precision, expanded with zeros)\
+	the result of converting a 0 with 0 precision is no characters\
 
-x и X — шестнадцатеричное беззнаковое число, x использует маленькие буквы (abcdef), X большие (ABCDEF), тип по умолчанию unsigned int.
+- `u`\
+	unsigned decimal (unsigned int)\
+	similar to `d, i`
 
-c — вывод символа с кодом, соответствующим переданному аргументу, тип по умолчанию int.
-s — вывод строки с нулевым завершающим байтом; если модификатор длины — l, выводится строка wchar_t*.
+- `x, X`\
+	unsigned hexadecimal notation (unsigned int converted to hex)
+	x uses lower case (abcdef), X - upper case (ABCDEF)
+	similar to `d, i`
 
-p — вывод указателя
-% — символ для вывода знака процента (%), используется для возможности вывода символов процента в строке printf, всегда используется в виде %%.
+- `c`\
+	int argument converted to unsigned char
+	undefined behavior with `0` and specified precision
+
+- `s`\
+	pointer to string\
+	undefined behavior with `0`\
+	precision specify the maximum number of bytes to be written\
+
+- `p`\
+	pointer of void type
+	undefined behavior with `0` and specified precision
+
+- `%`\
+	a % character is written
+	undefined behavior with `0` and specified precision
