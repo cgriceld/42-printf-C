@@ -9,8 +9,9 @@ static void	get_flags(const char **format, t_ppack *pack)
 	{
 		if (**format == '-' && !pack->minus)
 			pack->minus++;
-		if (**format++ == '0' && !was_zero)
+		if (**format == '0' && !was_zero)
 			was_zero++;
+		++*format;
 	}
 	pack->zero = (!pack->minus && was_zero) ? 1 : 0;
 }
@@ -28,14 +29,15 @@ static void	get_width(const char **format, t_ppack *pack, va_list ap)
 		++*format;
 		return ;
 	}
-	pack->width = ft_atoi(*format++);
+	pack->width = ft_atoi(*format);
 	while (ft_isdigit(**format))
-		*format += 1;
+		++*format;
 }
 
 static void	get_prec(const char **format, t_ppack *pack, va_list ap)
 {
-	if (**++format == '*')
+	++*format;
+	if (**format == '*')
 	{
 		if ((pack->prec = va_arg(ap, int)) < 0)
 		{
@@ -47,7 +49,7 @@ static void	get_prec(const char **format, t_ppack *pack, va_list ap)
 	}
 	else if (ft_isdigit(**format))
 	{
-		pack->prec = ft_atoi(*format++);
+		pack->prec = ft_atoi(*format);
 		if (pack->prec < 0)
 			pack->error = 1;
 		while (ft_isdigit(**format))

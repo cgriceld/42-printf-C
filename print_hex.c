@@ -23,7 +23,7 @@ void	print_hex(t_ppack *pack, unsigned int num, const int flag, int *bytes)
 	const char	*hexnum;
 	int			len;
 
-	hexnum = ft_itoahex(num, flag);
+	hexnum = ft_itoahex((size_t)num, flag);
 	len = correct_hex(pack, hexnum, &len);
 	if (!pack->minus && pack->width)
 	{
@@ -36,7 +36,7 @@ void	print_hex(t_ppack *pack, unsigned int num, const int flag, int *bytes)
 		print_wdprec('0', pack, bytes, 0);
 	if (!pack->error && len)
 	{
-		if (ft_putstr_fd(hexnum, 1) < 0)
+		if (write(1, hexnum, len) < 0)
 			pack->error = 1;
 		else
 			*bytes += len;
