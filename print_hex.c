@@ -12,9 +12,26 @@
 
 #include "ft_printf.h"
 
+static int	negprecx_format(t_ppack *pack, const char *hexnum, int *len)
+{
+	if (pack->prec)
+		pack->width = pack->prec;
+	pack->prec = 0;
+	pack->zero = 0;
+	pack->minus = 1;
+	if (*hexnum == '0')
+		*len = 0;
+	pack->width -= *len;
+	if (pack->width < 0)
+		pack->width = 0;
+	return (*len);
+}
+
 static int	correct_hex(t_ppack *pack, const char *hexnum, int *len)
 {
 	*len = (int)ft_strlen(hexnum);
+	if (pack->prectow)
+		return (negprecx_format(pack, hexnum, len));
 	if (*hexnum == '0' && pack->wasdot && !pack->prec)
 		*len = pack->negprec ? 1 : 0;
 	if (pack->wasdot && !pack->prec && !pack->negprec)

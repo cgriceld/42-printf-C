@@ -40,6 +40,14 @@ void		print_c(t_ppack *pack, int c, int *bytes)
 static int	correct_s(t_ppack *pack, char *s, int *len)
 {
 	*len = s ? (int)ft_strlen(s) : 6;
+	if (pack->prectow)
+	{
+		if (pack->prec)
+			pack->width = pack->prec;
+		pack->zero = 0;
+		*len = 0;
+		return (*len);
+	}
 	if (pack->wasdot && !pack->prec && !pack->negprec)
 		*len = 0;
 	if (len && pack->prec && (pack->prec < *len))

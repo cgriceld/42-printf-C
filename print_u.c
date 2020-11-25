@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static int	negprecu_format(t_ppack *pack, unsigned int num, int *len)
+static int		negprecu_format(t_ppack *pack, unsigned int num, int *len)
 {
 	if (pack->prec)
 		pack->width = pack->prec;
@@ -40,8 +40,6 @@ static int		correct_u(t_ppack *pack, unsigned int num, int *len)
 		pack->zero = 0;
 	pack->prec = *len >= pack->prec ? 0 : pack->prec - *len;
 	pack->width -= pack->prec + *len;
-	if (num < 0)
-		pack->width--;
 	if (pack->width < 0)
 		pack->width = 0;
 	return (*len);
