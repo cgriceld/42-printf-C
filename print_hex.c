@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_hex.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cgriceld <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/25 13:40:18 by cgriceld          #+#    #+#             */
+/*   Updated: 2020/11/25 13:40:20 by cgriceld         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 static int	correct_hex(t_ppack *pack, const char *hexnum, int *len)
@@ -18,12 +30,12 @@ static int	correct_hex(t_ppack *pack, const char *hexnum, int *len)
 	return (*len);
 }
 
-void	print_hex(t_ppack *pack, unsigned int num, const int flag, int *bytes)
+void		print_hex(t_ppack *pack, unsigned int num, const int f, int *bytes)
 {
 	const char	*hexnum;
 	int			len;
 
-	hexnum = ft_itoahex((size_t)num, flag);
+	hexnum = ft_itoahex((size_t)num, f);
 	len = correct_hex(pack, hexnum, &len);
 	if (!pack->minus && pack->width)
 	{

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cgriceld <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/25 13:41:11 by cgriceld          #+#    #+#             */
+/*   Updated: 2020/11/25 13:41:14 by cgriceld         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 /*
@@ -6,6 +18,7 @@
 ** If flag = 0, write '0' within precision and also track errors.
 ** Increase written bytes.
 */
+
 void		print_wdprec(const char ch, t_ppack *pack, int *bytes, int flag)
 {
 	while (flag && pack->width--)

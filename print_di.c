@@ -1,15 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_di.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cgriceld <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/25 13:40:06 by cgriceld          #+#    #+#             */
+/*   Updated: 2020/11/25 13:40:08 by cgriceld         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-/*
-** Determine, how many 0 from precision, ignore 0 flag is there is precision.
-** Determine width (subtract len and precision).
-** Width will be blank or 0 (if 0 flag and no precision).
-** If num is negative, reduce width.
-** If width is negative now, thus we ignore it (e.g., prec > width).
-*/
+static int	negprecdi_format(t_ppack *pack, int num, int *len)
+{
+	if (pack->prec)
+		pack->width = pack->prec;
+	pack->prec = 0;
+	pack->zero = 0;
+	pack->minus = 1;
+	if (!num)
+		*len = 0;
+	pack->width -= (num < 0) ? (*len + 1) : *len;
+	if (pack->width < 0)
+		pack->width = 0;
+	return (*len);
+}
+
 static int	correct_di(t_ppack *pack, int num, int *len)
 {
 	*len = ft_intlen(num);
+	if (pack->prectow)
+		return (negprecdi_format(pack, num, len));
 	if (!num && pack->wasdot && !pack->prec)
 		*len = pack->negprec ? 1 : 0;
 	if (pack->wasdot && !pack->prec && !pack->negprec)
@@ -25,10 +47,6 @@ static int	correct_di(t_ppack *pack, int num, int *len)
 	return (*len);
 }
 
-/*
-** Print minus and set error flag if error in write call.
-** Increase written bytes by 1.
-*/
 static void	print_disign(const char ch, t_ppack *pack, int *bytes)
 {
 	if (write(1, &ch, 1) < 0)
@@ -55,17 +73,7 @@ static void	print_dinum(int n, t_ppack *pack, int *bytes)
 		*bytes += 1;
 }
 
-/*
-** 1) If 0 flag and num < 0, sign is printed before zeros.
-** 2) If rightaligned (no flag -) and width is present, fill width with 0
-** (if flag 0) and with spaces otherwise.
-** 3) Print sign if num < 0 and we haven't printed it yet,
-** because no zero flag.
-** 4) Fill precision if it is.
-** 5) Write number itself (without sign if num < 0).
-** 6) If leftaligned (flag -) and width is present, fill it with spaces.
-*/
-void	print_di(t_ppack *pack, int num, int *bytes)
+void		print_di(t_ppack *pack, int num, int *bytes)
 {
 	int len;
 

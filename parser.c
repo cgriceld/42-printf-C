@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cgriceld <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/25 13:39:55 by cgriceld          #+#    #+#             */
+/*   Updated: 2020/11/25 13:39:57 by cgriceld         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 static void	get_flags(const char **format, t_ppack *pack)
@@ -47,12 +59,14 @@ static void	get_prec(const char **format, t_ppack *pack, va_list ap)
 		++*format;
 		return ;
 	}
-	else if (ft_isdigit(**format))
+	if (ft_isdigit(**format) || **format == '-')
 	{
+		if (**format == '-')
+			pack->prectow = 1;
 		pack->prec = ft_atoi(*format);
 		if (pack->prec < 0)
-			pack->error = 1;
-		while (ft_isdigit(**format))
+			pack->prec *= -1;
+		while (ft_isdigit(**format) || **format == '-')
 			++*format;
 	}
 	else
@@ -79,7 +93,7 @@ static void	process_type(t_ppack *pack, va_list ap, int *bytes)
 		print_p(pack, va_arg(ap, void *), bytes);
 }
 
-void	parser(const char **format, t_ppack *pack, va_list ap, int *bytes)
+void		parser(const char **format, t_ppack *pack, va_list ap, int *bytes)
 {
 	if (**format == '-' || **format == '0')
 		get_flags(format, pack);

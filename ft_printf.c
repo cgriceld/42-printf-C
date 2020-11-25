@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cgriceld <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/25 13:37:39 by cgriceld          #+#    #+#             */
+/*   Updated: 2020/11/25 13:37:41 by cgriceld         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 static int	collect_pack(const char **format, va_list ap, int *bytes)
@@ -10,6 +22,7 @@ static int	collect_pack(const char **format, va_list ap, int *bytes)
 	pack->error = 0;
 	pack->wasdot = 0;
 	pack->negprec = 0;
+	pack->prectow = 0;
 	parser(format, pack, ap, bytes);
 	if (pack->error)
 	{
@@ -20,7 +33,7 @@ static int	collect_pack(const char **format, va_list ap, int *bytes)
 	return (1);
 }
 
-int	ft_printf(const char *format, ...)
+int			ft_printf(const char *format, ...)
 {
 	va_list		ap;
 	int			bytes;

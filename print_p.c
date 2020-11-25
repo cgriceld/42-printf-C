@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_p.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cgriceld <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/25 13:40:30 by cgriceld          #+#    #+#             */
+/*   Updated: 2020/11/25 13:40:32 by cgriceld         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-static int	correct_p(t_ppack *pack, const char	*address, void *p, int *len)
+static int	correct_p(t_ppack *pack, const char *address, void *p, int *len)
 {
 	*len = (int)ft_strlen(address);
 	pack->width -= 2;
-	if (!p && pack->wasdot && !pack->prec)
+	if (!p && pack->wasdot && !pack->prec && !pack->negprec)
 		*len = 0;
 	if (pack->width)
 		pack->width -= *len;
@@ -13,7 +25,7 @@ static int	correct_p(t_ppack *pack, const char	*address, void *p, int *len)
 	return (*len);
 }
 
-void	print_p(t_ppack *pack, void *p, int *bytes)
+void		print_p(t_ppack *pack, void *p, int *bytes)
 {
 	const char	*address;
 	int			len;
@@ -21,7 +33,7 @@ void	print_p(t_ppack *pack, void *p, int *bytes)
 	address = ft_itoahex((size_t)p, 0);
 	len = correct_p(pack, address, p, &len);
 	if (!pack->minus && pack->width)
-			print_wdprec(' ', pack, bytes, 1);
+		print_wdprec(' ', pack, bytes, 1);
 	if (!pack->error)
 	{
 		if (write(1, "0x", 2) < 0)
