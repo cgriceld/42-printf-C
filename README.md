@@ -50,7 +50,7 @@ printf("format", [arguments ...])<br>
 	unsigned decimal (unsigned int)<br>
 	similar to <strong>d, i</strong>
 
-<li><code>x, X</code></li>
+<li><strong>x, X</strong></li>
 	unsigned hexadecimal notation (unsigned int converted to hex)<br>
 	x uses lower case (abcdef), X - upper case (ABCDEF)<br>
 	similar to <strong>d, i</strong>
