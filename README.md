@@ -39,7 +39,7 @@ printf("format", [arguments ...])<br>
 	behavior depends on type (see below)
 
 <li><strong>d, i</strong></li>
-	signed decimal (int)\
+	signed decimal (int)<br>
 	if <code>0</code>, leading zeros (if negative, sign before zeros) are used to pad to the width<br>
 	if <code>0</code> and <code>-</code> both appear, the <code>0</code> is ignored<br>
 	if a precision is specified, the <code>0</code> is ignored<br>
