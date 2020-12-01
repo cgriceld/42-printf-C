@@ -14,18 +14,16 @@
 
 static void	get_flags(const char **format, t_ppack *pack)
 {
-	int was_zero;
-
-	was_zero = 0;
 	while (**format == '-' || **format == '0')
 	{
 		if (**format == '-' && !pack->minus)
 			pack->minus++;
-		if (**format == '0' && !was_zero)
-			was_zero++;
+		if (**format == '0' && !pack->minus && !pack->zero)
+			pack->zero++;
 		++*format;
 	}
-	pack->zero = (!pack->minus && was_zero) ? 1 : 0;
+	if (pack->minus && pack->zero)
+		pack->zero = 0;
 }
 
 static void	get_width(const char **format, t_ppack *pack, va_list ap)
@@ -115,7 +113,6 @@ void		parser(const char **format, t_ppack *pack, va_list ap, int *bytes)
 		|| **format == 's' || **format == 'p' || **format == '%')
 		pack->type = **format;
 	else
-		pack->error = 1;
-	if (!pack->error)
-		process_type(pack, ap, bytes);
+		pack->type = '0';
+	pack->type == '0' ? --*format : process_type(pack, ap, bytes);
 }

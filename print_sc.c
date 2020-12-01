@@ -1,24 +1,24 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   print_sc.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cgriceld <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/25 13:40:47 by cgriceld          #+#    #+#             */
-/*   Updated: 2020/11/25 13:40:49 by cgriceld         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "ft_printf.h"
+
+static void	correct_c(t_ppack *pack)
+{
+	if (pack->prectow)
+	{
+		if (pack->prec)
+			pack->width = pack->prec;
+		pack->zero = 0;
+		pack->minus = 1;
+	}
+	if (pack->width)
+		pack->width--;
+}
 
 void		print_c(t_ppack *pack, int c, int *bytes)
 {
 	unsigned char	ch;
 
 	ch = (unsigned char)c;
-	if (pack->width)
-		pack->width--;
+	correct_c(pack);
 	if (!pack->minus && pack->width)
 	{
 		if (pack->zero)

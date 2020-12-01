@@ -1,22 +1,24 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   print_perc.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cgriceld <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/25 13:40:38 by cgriceld          #+#    #+#             */
-/*   Updated: 2020/11/25 13:40:40 by cgriceld         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "ft_printf.h"
 
-void	print_perc(t_ppack *pack, int *bytes)
+static void	negprecperc_format(t_ppack *pack)
 {
+	if (pack->prec)
+		pack->width = pack->prec;
+	pack->zero = 0;
+	pack->minus = 1;
+	pack->width--;
+}
+
+void		print_perc(t_ppack *pack, int *bytes)
+{
+	if (pack->prectow)
+		negprecperc_format(pack);
+	else
+		pack->width--;
+	if (pack->width < 0)
+		pack->width = 0;
 	if (!pack->minus && pack->width)
 	{
-		pack->width--;
 		if (pack->zero)
 			print_wdprec('0', pack, bytes, 1);
 		else
@@ -29,6 +31,6 @@ void	print_perc(t_ppack *pack, int *bytes)
 		else
 			*bytes += 1;
 	}
-	if (!pack->error && (--pack->width) > 0)
+	if (!pack->error && (pack->width) > 0)
 		print_wdprec(' ', pack, bytes, 1);
 }

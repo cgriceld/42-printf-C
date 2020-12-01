@@ -1,0 +1,8 @@
+*.o
+*.out
+*.a
+*.code-workspace
+*.dSYM
+
+.vscode
+.DS_Store

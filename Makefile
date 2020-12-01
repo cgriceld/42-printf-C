@@ -21,7 +21,7 @@ $(NAME): $(OBJ) $(HEADER)
 	@make -C $(LIBFTDIR)
 	@cp $(LIBFTDIR)/$(LIBFTNAME) $@
 	@ar rc $@ $(OBJ)
-	@ranlib $(NAME)
+	@ranlib $@
 
 clean:
 	@/bin/rm -f $(OBJ)
