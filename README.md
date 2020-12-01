@@ -1,3 +1,4 @@
+<h1>ft_printf</h1>
 My implementation of <code>printf</code> function. This repo uses my own C library ([libft](https://github.com/linpoa/libft)) as a submodule.
 
 <h2>How it works:</h2>
