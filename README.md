@@ -20,25 +20,25 @@ printf("format", [arguments ...])<br>
 
 <ul>
 
-<li><code>-</code></li>
+<li><strong>-</strong></li>
 	the value is leftaligned within the specified width; by default, it is rightaligned
 
-<li><code>0</code></li>
+<li><strong>0</strong></li>
 	adds zeros within specified width, by default - spaces<br>
 	behavior depends on type (see below)
 
-<li><code>width</code></li>
+<li><strong>width</strong></li>
 	minimum field width<br>
 	can be specified directly in <code>format</code> (nonnegative decimal integer) or through <code>*</code> (int argument)<br>
 	negative width is taken as a <code>-</code> flag followed by a positive width (both for <code>format</code> and <code>*</code>)<br>
 	if value length > width, width is ignored, otherwise it is padded with spaces on the left (or depending on flags)
 
-<li><code>precision</code></li>
+<li><strong>precision</strong></li>
 	<code>.</code> followed either by nonnegative decimal integer or through <code>*</code> (int argument)<br>
 	if only the <code>.</code> is specified, the precision is taken as zero<br>
 	behavior depends on type (see below)
 
-<li><code>d, i</code></li>
+<li><strong>d, i</strong></li>
 	signed decimal (int)\
 	if <code>0</code>, leading zeros (if negative, sign before zeros) are used to pad to the width<br>
 	if <code>0</code> and <code>-</code> both appear, the <code>0</code> is ignored<br>
@@ -46,29 +46,29 @@ printf("format", [arguments ...])<br>
 	precision - minimum number of digits to appear (if value < precision, expanded with zeros)<br>
 	the result of converting a 0 with 0 precision is no characters
 
-<li><code>u</code></li>
+<li><strong>u</strong></li>
 	unsigned decimal (unsigned int)<br>
-	similar to <code>d, i</code>
+	similar to <strong>d, i</strong>
 
 <li><code>x, X</code></li>
 	unsigned hexadecimal notation (unsigned int converted to hex)<br>
 	x uses lower case (abcdef), X - upper case (ABCDEF)<br>
-	similar to <code>d, i</code>
+	similar to <strong>d, i</strong>
 
-<li><code>c</code></li>
+<li><strong>c</strong></li>
 	int argument converted to unsigned char<br>
 	undefined behavior with <code>0</code> and specified precision
 
-<li><code>s</code></li>
+<li><strong>s</strong></li>
 	pointer to string<br>
 	undefined behavior with <code>0</code><br>
 	precision specify the maximum number of bytes to be written
 
-<li><code>p</code></li>
+<li><strong>p</strong></li>
 	pointer of void type<br>
 	undefined behavior with <code>0</code> and specified precision
 
-<li><code>%</code></li>
+<li><strong>%</strong></li>
 	a % character is written<br>
 	undefined behavior with <code>0</code> and specified precision
 
