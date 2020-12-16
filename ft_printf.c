@@ -34,13 +34,8 @@ static int	collect_pack(const char **format, va_list ap, int *bytes)
 	parser(format, pack, &flags, ap);
 	pack->type == '0' ? --*format : process_type(pack, ap, &flags);
 	*bytes += pack->bytes;
-	if (flags & ERROR)
-	{
-		free(pack);
-		return (-1);
-	}
 	free(pack);
-	return (1);
+	return ((flags & ERROR) ? -1 : 1);
 }
 
 int			ft_printf(const char *format, ...)
