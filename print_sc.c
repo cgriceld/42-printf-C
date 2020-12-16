@@ -1,54 +1,54 @@
 #include "ft_printf.h"
 
-static void	correct_c(t_ppack *pack)
+static void	correct_c(t_ppack *pack, unsigned char *flags)
 {
-	if (pack->prectow)
+	if (*flags & PRECTOW)
 	{
 		if (pack->prec)
 			pack->width = pack->prec;
-		pack->zero = 0;
-		pack->minus = 1;
+		*flags &= ~ZERO;
+		*flags |= MINUS;
 	}
 	if (pack->width)
 		pack->width--;
 }
 
-void		print_c(t_ppack *pack, int c, int *bytes)
+void		print_c(t_ppack *pack, int c, unsigned char *flags)
 {
 	unsigned char	ch;
 
 	ch = (unsigned char)c;
-	correct_c(pack);
-	if (!pack->minus && pack->width)
+	correct_c(pack, flags);
+	if (!(*flags & MINUS) && pack->width)
 	{
-		if (pack->zero)
-			print_wdprec('0', pack, bytes, 1);
+		if (*flags & ZERO)
+			print_wdprec('0', &pack->width, flags, &pack->bytes);
 		else
-			print_wdprec(' ', pack, bytes, 1);
+			print_wdprec(' ', &pack->width, flags, &pack->bytes);
 	}
-	if (!pack->error)
+	if (!(*flags & ERROR))
 	{
-		if (ft_putchar_fd(ch, 1) < 0)
-			pack->error = 1;
+		if (write(1, &ch, 1) < 0)
+			*flags |= ERROR;
 		else
-			*bytes += 1;
+			pack->bytes++;
 	}
-	if (!pack->error && (pack->width > 0))
-		print_wdprec(' ', pack, bytes, 1);
+	if (!(*flags & ERROR) && (pack->width > 0))
+		print_wdprec(' ', &pack->width, flags, &pack->bytes);
 }
 
-static int	correct_s(t_ppack *pack, char *s, int *len)
+static int	correct_s(t_ppack *pack, char *s, int *len, unsigned char *flags)
 {
 	*len = s ? (int)ft_strlen(s) : 6;
-	if (pack->prectow)
+	if (*flags & PRECTOW)
 	{
 		if (pack->prec)
 			pack->width = pack->prec;
-		pack->zero = 0;
+		*flags &= ~ZERO;
 		*len = 0;
 		return (*len);
 	}
-	if (pack->wasdot && !pack->prec && !pack->negprec)
+	if ((*flags & WASDOT) && !pack->prec && !(*flags & NEGPREC))
 		*len = 0;
 	if (len && pack->prec && (pack->prec < *len))
 		*len = pack->prec;
@@ -58,38 +58,39 @@ static int	correct_s(t_ppack *pack, char *s, int *len)
 	return (*len);
 }
 
-static void	print_string(t_ppack *pack, char *s, int *bytes, int len)
+static void	print_string(t_ppack *pack, char *s, unsigned char *flags, \
+						int len)
 {
 	if (!s)
 	{
 		if (write(1, "(null)", len) < 0)
-			pack->error = 1;
+			*flags |= ERROR;
 		else
-			*bytes += len;
+			pack->bytes += len;
 	}
 	else if (len)
 	{
 		if (write(1, s, len) < 0)
-			pack->error = 1;
+			*flags |= ERROR;
 		else
-			*bytes += len;
+			pack->bytes += len;
 	}
 }
 
-void		print_s(t_ppack *pack, char *s, int *bytes)
+void		print_s(t_ppack *pack, char *s, unsigned char *flags)
 {
 	int len;
 
-	len = correct_s(pack, s, &len);
-	if (!pack->minus && pack->width)
+	len = correct_s(pack, s, &len, flags);
+	if (!(*flags & MINUS) && pack->width)
 	{
-		if (pack->zero)
-			print_wdprec('0', pack, bytes, 1);
+		if (*flags & ZERO)
+			print_wdprec('0', &pack->width, flags, &pack->bytes);
 		else
-			print_wdprec(' ', pack, bytes, 1);
+			print_wdprec(' ', &pack->width, flags, &pack->bytes);
 	}
-	if (!pack->error)
-		print_string(pack, s, bytes, len);
-	if (!pack->error && (pack->width > 0))
-		print_wdprec(' ', pack, bytes, 1);
+	if (!(*flags & ERROR))
+		print_string(pack, s, flags, len);
+	if (!(*flags & ERROR) && (pack->width > 0))
+		print_wdprec(' ', &pack->width, flags, &pack->bytes);
 }

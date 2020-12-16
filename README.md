@@ -1,6 +1,7 @@
 <h1>ft_printf</h1>
 
-My implementation of <code>printf</code> function. This repo uses my own C library ([libft](https://github.com/linpoa/libft)) as a submodule.
+My implementation of <code>printf</code> function. This repo uses my own C library ([libft](https://github.com/linpoa/libft)) as a submodule.<br>
+Project is written in accordance with School 21 coding style.
 
 <h2>How it works:</h2>
 <ol>

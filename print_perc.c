@@ -1,36 +1,36 @@
 #include "ft_printf.h"
 
-static void	negprecperc_format(t_ppack *pack)
+static void	negprecperc_format(t_ppack *pack, unsigned char *flags)
 {
 	if (pack->prec)
 		pack->width = pack->prec;
-	pack->zero = 0;
-	pack->minus = 1;
+	*flags &= ~ZERO;
+	*flags |= MINUS;
 	pack->width--;
 }
 
-void		print_perc(t_ppack *pack, int *bytes)
+void		print_perc(t_ppack *pack, unsigned char *flags)
 {
-	if (pack->prectow)
-		negprecperc_format(pack);
+	if (*flags & PRECTOW)
+		negprecperc_format(pack, flags);
 	else
 		pack->width--;
 	if (pack->width < 0)
 		pack->width = 0;
-	if (!pack->minus && pack->width)
+	if (!(*flags & MINUS) && pack->width)
 	{
-		if (pack->zero)
-			print_wdprec('0', pack, bytes, 1);
+		if (*flags & ZERO)
+			print_wdprec('0', &pack->width, flags, &pack->bytes);
 		else
-			print_wdprec(' ', pack, bytes, 1);
+			print_wdprec(' ', &pack->width, flags, &pack->bytes);
 	}
-	if (!pack->error)
+	if (!(*flags & ERROR))
 	{
 		if (write(1, "%", 1) < 0)
-			pack->error = 1;
+			*flags |= ERROR;
 		else
-			*bytes += 1;
+			pack->bytes++;
 	}
-	if (!pack->error && (pack->width) > 0)
-		print_wdprec(' ', pack, bytes, 1);
+	if (!(*flags & ERROR) && (pack->width > 0))
+		print_wdprec(' ', &pack->width, flags, &pack->bytes);
 }

@@ -269,7 +269,7 @@ int	main(void)
 	printf("%d\n", printf("[%-010.-d]\n", 9));
 	printf("%d\n", ft_printf("[%-010.-d]\n", 9));
 	printf("       \n");
-
+/*
 	printf("U TEST\n");
 	printf("%d\n", printf("[%9.7u]\n", 23));
 	printf("%d\n", ft_printf("[%9.7u]\n", 23));
@@ -532,17 +532,17 @@ int	main(void)
 	printf("%d\n", printf("[%10.-8x]\n", 9));
 	printf("%d\n", ft_printf("[%10.-8x]\n", 9));
 	printf("-------\n");
-	printf("%d\n", printf("[%10.-8d]\n", 0));
-	printf("%d\n", ft_printf("[%10.-8d]\n", 0));
+	printf("%d\n", printf("[%10.-8x]\n", 0));
+	printf("%d\n", ft_printf("[%10.-8x]\n", 0));
 	printf("-------\n");
-	printf("%d\n", printf("[%07.-8d]\n", 9));
-	printf("%d\n", ft_printf("[%07.-8d]\n", 9));
+	printf("%d\n", printf("[%07.-8x]\n", 9));
+	printf("%d\n", ft_printf("[%07.-8x]\n", 9));
 	printf("-------\n");
-	printf("%d\n", printf("[%07.-8d]\n", -240));
-	printf("%d\n", ft_printf("[%07.-8d]\n", -240));
+	printf("%d\n", printf("[%07.-8X]\n", -240));
+	printf("%d\n", ft_printf("[%07.-8X]\n", -240));
 	printf("-------\n");
-	printf("%d\n", printf("[%07.-8d]\n", 0));
-	printf("%d\n", ft_printf("[%07.-8d]\n", 0));
+	printf("%d\n", printf("[%07.-8x]\n", 0));
+	printf("%d\n", ft_printf("[%07.-8x]\n", 0));
 	printf("-------\n");
 	printf("%d\n", printf("[%010.-8x]\n", 9));
 	printf("%d\n", ft_printf("[%010.-8x]\n", 9));
@@ -571,7 +571,7 @@ int	main(void)
 	printf("%d\n", printf("[%-010.-x]\n", 42));
 	printf("%d\n", ft_printf("[%-010.-x]\n", 42));
 	printf("       \n");
-/*
+
 	printf("S TEST\n");
 	printf("%d\n", printf("[%42s]\n", "Jabberwocky"));
 	printf("%d\n", ft_printf("[%42s]\n", "Jabberwocky"));

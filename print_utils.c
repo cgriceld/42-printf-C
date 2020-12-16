@@ -1,30 +1,16 @@
 #include "ft_printf.h"
 
-/*
-** If flag = 1, write ch (0 or space) within width,
-** set error flag if error in write call and break then.
-** If flag = 0, write '0' within precision and also track errors.
-** Increase written bytes.
-*/
-
-void		print_wdprec(const char ch, t_ppack *pack, int *bytes, int flag)
+void		print_wdprec(const char ch, int *i, unsigned char *flags, \
+							int *bytes)
 {
-	while (flag && pack->width--)
+	while (*i)
 	{
 		if (write(1, &ch, 1) < 0)
 		{
-			pack->error = 1;
+			*flags |= ERROR;
 			return ;
 		}
 		*bytes += 1;
-	}
-	while (!flag && pack->prec--)
-	{
-		if (write(1, &ch, 1) < 0)
-		{
-			pack->error = 1;
-			return ;
-		}
-		*bytes += 1;
+		*i -= 1;
 	}
 }
