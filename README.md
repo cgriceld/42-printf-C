@@ -12,6 +12,12 @@ This repo uses my own C library ([libft](https://github.com/linpoa/libft)) as a 
 	<li><code>main.c</code> contains some of my tests, to compile it run script: <code>bash run.sh</code> (you can add/change files you want to compile in <code>run.sh</code></li>
 </ol>
 
+***Makefile***
+* *`make`* -- compiles `libftprintf.a`.
+* *`clean`* -- deletes object files.
+* *`fclean`* -- deletes object files and `libftprintf.a`.
+* *`re`* -- runs `fclean` and recompiles.
+
 This version supports `c s p d i u x X %` conversions, `- 0` flags, width and precision fields (also passed via an asterisk).<br>
 This version **reproduces** undefined behavior which may occur in combinations of the above mentioned flags and specifiers.<br>
 Return value is number of written bytes or -1 in case of `write` error.<br>
